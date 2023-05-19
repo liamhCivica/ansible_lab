@@ -1,0 +1,25 @@
+---
+# tasks file for jenkings
+
+- name: add jenkins key
+  apt_key:
+    state: present
+    url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+
+- name: "install repository"
+  apt_repository:
+    repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+
+- name: "Install Java and Jenkins"
+  package:
+    pkg: 
+      - openjdk-11-jre
+      - jenkins
+    update_cache: yes
+    state: present
+
+- name: "Starting jenkins"
+  service:
+    name: "jenkins"
+    state: started
+    enabled: yes

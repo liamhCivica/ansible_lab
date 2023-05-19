@@ -1,0 +1,21 @@
+---
+# tasks file for nginx
+
+- name: "install nginx"
+  become: yes
+  register: nginx
+  package:
+    name: nginx
+    update_cache: true
+    state: present
+
+- name: Replace default html
+  become: yes
+  copy:
+    src: ./nginx/files/index.nginx-debian.html
+    remote_src: no
+    dest: /var/www/html/
+
+- name: "restart nginx"
+  become: yes
+  shell: service nginx restart

@@ -1,0 +1,26 @@
+---
+
+- name: "create dev group"
+  group:
+    name: devs
+    state: present
+
+- name: "create user in dev group"
+  user:
+    name: "liam"
+    state: present
+    shell: /bin/zsh
+    group: devs
+
+- name: "install zsh"
+  become: yes
+  package:
+    name: zsh
+    update_cache: yes
+    state: present
+
+- name: "install curl"
+  become: yes
+  package:
+    name: curl
+    state: present
